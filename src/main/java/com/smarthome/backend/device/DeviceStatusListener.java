@@ -31,8 +31,8 @@ public class DeviceStatusListener {
     private Double heaterSwitchOffTresholdValue = 26.0;
 
     // Initial lower and upper threshold values for light:
-    private Double lightSwitchOnTresholdValue = 233.0;
-    private Double lightSitchOffTresholdValue = 899.0;
+    private Double lightSwitchOnTresholdValue = 0.222581;
+    private Double lightSitchOffTresholdValue = 1.0;
 
     // TODO: Use deltas to avoid frequent ON/OFF commands when actual value is fluctuating around the threshold value
     private static final Double temperatureThresholdDelta = 2.0;
