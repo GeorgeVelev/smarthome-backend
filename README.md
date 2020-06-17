@@ -49,3 +49,4 @@ This is the back-end server application for the "Smart Home" university project 
     "command": "LIGHTS_ON" 
   }
 ```
+Supported commands: ```LIGHTS_ON, LIGHTS_OFF, HEAT_ON, HEAT_OFF, VENT_ON, VENT_OFF```
