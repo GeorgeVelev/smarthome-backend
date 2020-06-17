@@ -16,6 +16,9 @@ smartHome:
       heaterActuator:
         room: bedroom
         topic: "nodemcu_actuator/heat"
+      coolerActuator:
+        room: bedroom
+        topic: "nodemcu_actuator/cool"
     enableMessageGenerator: false
   database:
     enableMeasurementsGenerator: true

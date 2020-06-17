@@ -13,9 +13,9 @@ public enum CommandType {
 
     HEAT_OFF,
 
-    VENT_ON,
+    COOL_ON,
 
-    VENT_OFF;
+    COOL_OFF;
 
     @JsonCreator
     public static CommandType fromString(String type) {

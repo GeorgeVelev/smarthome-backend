@@ -9,11 +9,11 @@ import com.smarthome.backend.model.CommandHistory;
 import org.springframework.beans.factory.annotation.Value;
 
 @Command
-public class HeaterOffCommand extends AbstractCommand<Void> {
+public class CoolerOnCommand extends AbstractCommand<Void> {
 
-    private final CommandType commandType = CommandType.HEAT_OFF;
+    private final CommandType commandType = CommandType.COOL_ON;
 
-    @Value("${smartHome.mqtt.devices.heaterActuator.topic}")
+    @Value("${smartHome.mqtt.devices.coolerActuator.topic}")
     private String topic;
 
     @Override
@@ -24,7 +24,7 @@ public class HeaterOffCommand extends AbstractCommand<Void> {
                 .payload(commandType.getType().getBytes())
                 .send();
 
-        deviceState.setHeater(DeviceStateType.OFF);
+        deviceState.setCooler(DeviceStateType.ON);
         commandHistoryRepository.save(new CommandHistory(commandType));
         return null;
     }

@@ -49,4 +49,34 @@ This is the back-end server application for the "Smart Home" university project 
     "command": "LIGHTS_ON" 
   }
 ```
-Supported commands: ```LIGHTS_ON, LIGHTS_OFF, HEAT_ON, HEAT_OFF, VENT_ON, VENT_OFF```
+Supported commands: ```LIGHTS_ON, LIGHTS_OFF, HEAT_ON, HEAT_OFF, COOL_ON, COOL_OFF```
+
+##### Fetch command execution history:
+```GET http://localhost:8090/smarthome/device/command/history```
+
+Response objects are returned ordered by timestamp, descending:
+```json
+[
+    {
+        "timestamp": "2020-06-17T23:58:14.064376",
+        "commandType": "HEAT_ON"
+    },
+    {
+        "timestamp": "2020-06-17T23:58:14.014381",
+        "commandType": "LIGHTS_OFF"
+    }
+]
+```
+
+##### Get current devices state:
+```GET http://localhost:8090/smarthome/device/state```
+
+Sample response:
+```json
+{
+    "light": "OFF",
+    "heater": "ON",
+    "cooler": "UNKNOWN"
+}
+```
+

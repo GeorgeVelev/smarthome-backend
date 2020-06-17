@@ -1,37 +1,26 @@
-package com.smarthome.backend.model;
+package com.smarthome.backend.dto;
 
 import com.smarthome.backend.enums.CommandType;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 
-@Entity(name = "command_history")
-public class CommandHistory {
+public class CommandHistoryDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    @CreationTimestamp
     private LocalDateTime timestamp;
 
-    @Enumerated(EnumType.STRING)
     private CommandType commandType;
 
-    public CommandHistory(CommandType commandType) {
+    public CommandHistoryDTO(LocalDateTime timestamp, CommandType commandType) {
+        this.timestamp = timestamp;
         this.commandType = commandType;
     }
 
-    public CommandHistory() {
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+    public CommandHistoryDTO() {
     }
 
     public LocalDateTime getTimestamp() {

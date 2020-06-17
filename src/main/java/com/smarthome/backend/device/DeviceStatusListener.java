@@ -4,12 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hivemq.client.mqtt.datatypes.MqttTopicFilter;
 import com.hivemq.client.mqtt.mqtt3.Mqtt3AsyncClient;
 import com.hivemq.client.mqtt.mqtt3.message.publish.Mqtt3Publish;
-import com.smarthome.backend.command.HeaterOffCommand;
-import com.smarthome.backend.command.HeaterOnCommand;
-import com.smarthome.backend.command.LightsOffCommand;
-import com.smarthome.backend.command.LightsOnCommand;
+import com.smarthome.backend.command.*;
 import com.smarthome.backend.dto.SensorMessageDTO;
 import com.smarthome.backend.service.CommandExecutor;
+import com.smarthome.backend.service.DeviceState;
 import com.smarthome.backend.service.MeasurementsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,11 +26,18 @@ public class DeviceStatusListener {
 
     // Initial lower and upper threshold values for temperature:
     private Double heaterSwitchOnTresholdValue = 18.0;
-    private Double heaterSwitchOffTresholdValue = 26.0;
+    private Double heaterSwitchOffTresholdValue = 24.0;
+
+    private Double coolerSwitchOnTresholdValue = 28.0;
+    private Double coolerSwitchOffTresholdValue = 26.0;
 
     // Initial lower and upper threshold values for light:
     private Double lightSwitchOnTresholdValue = 0.222581;
     private Double lightSitchOffTresholdValue = 1.0;
+
+    private boolean lightsLastState;
+    private boolean heaterLastState;
+    private boolean coolerLastState;
 
     // TODO: Use deltas to avoid frequent ON/OFF commands when actual value is fluctuating around the threshold value
     private static final Double temperatureThresholdDelta = 2.0;
@@ -52,6 +57,9 @@ public class DeviceStatusListener {
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    @Autowired
+    private DeviceState deviceState;
 
     @PostConstruct
     public void init() {
@@ -101,6 +109,10 @@ public class DeviceStatusListener {
                             commandExecutor.executeCommand(HeaterOnCommand.class);
                         } else if (temperature > heaterSwitchOffTresholdValue) {
                             commandExecutor.executeCommand(HeaterOffCommand.class);
+                        } else if (temperature > coolerSwitchOnTresholdValue) {
+                            commandExecutor.executeCommand(CoolerOnCommand.class);
+                        } else if (temperature < coolerSwitchOffTresholdValue) {
+                            commandExecutor.executeCommand(CoolerOffCommand.class);
                         }
                         break;
                 }

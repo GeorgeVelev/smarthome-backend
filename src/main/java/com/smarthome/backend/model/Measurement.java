@@ -4,10 +4,7 @@ import com.smarthome.backend.enums.MeasurementType;
 import com.smarthome.backend.enums.MeasurementUnit;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity(name = "measurement")
@@ -17,8 +14,10 @@ public class Measurement {
     @Id
     private Integer id;
 
+    @Enumerated(EnumType.STRING)
     private MeasurementType type;
 
+    @Enumerated(EnumType.STRING)
     private MeasurementUnit unit;
 
     private Double value;

@@ -2,7 +2,11 @@ package com.smarthome.backend.controller;
 
 import com.smarthome.backend.device.DeviceCommandPublisher;
 import com.smarthome.backend.dto.CommandDTO;
+import com.smarthome.backend.dto.CommandHistoryDTO;
+import com.smarthome.backend.dto.DevicesStatusDTO;
 import com.smarthome.backend.dto.MeasurementDTO;
+import com.smarthome.backend.service.CommandHistoryService;
+import com.smarthome.backend.service.DeviceState;
 import com.smarthome.backend.service.MeasurementsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +26,12 @@ public class SmartHomeController {
 
     @Autowired
     private DeviceCommandPublisher deviceCommandPublisher;
+
+    @Autowired
+    private CommandHistoryService commandHistoryService;
+
+    @Autowired
+    private DeviceState deviceState;
 
     @GetMapping("/measurements")
     public ResponseEntity<List<MeasurementDTO>> getAllMeasurements() {
@@ -51,6 +61,16 @@ public class SmartHomeController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void applyDeviceCommand(@RequestBody CommandDTO commandDTO) {
         deviceCommandPublisher.publishCommand(commandDTO);
+    }
+
+    @GetMapping("/device/command/history")
+    public ResponseEntity<List<CommandHistoryDTO>> retrieveCommandHistory() {
+        return ResponseEntity.ok(commandHistoryService.getCommandExecutionHistory());
+    }
+
+    @GetMapping("/device/state")
+    public ResponseEntity<DevicesStatusDTO> getCurrentDeviceState() {
+        return ResponseEntity.ok(deviceState.getDevicesStatus());
     }
 
 }
