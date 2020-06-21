@@ -64,8 +64,8 @@ public class SmartHomeController {
     }
 
     @GetMapping("/device/command/history")
-    public ResponseEntity<List<CommandHistoryDTO>> retrieveCommandHistory() {
-        return ResponseEntity.ok(commandHistoryService.getCommandExecutionHistory());
+    public ResponseEntity<List<CommandHistoryDTO>> retrieveCommandHistory(@RequestParam(defaultValue = "100") int num) {
+        return ResponseEntity.ok(commandHistoryService.getCommandExecutionHistory(num));
     }
 
     @GetMapping("/device/state")

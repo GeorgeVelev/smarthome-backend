@@ -52,7 +52,8 @@ This is the back-end server application for the "Smart Home" university project 
 Supported commands: ```LIGHTS_ON, LIGHTS_OFF, HEAT_ON, HEAT_OFF, COOL_ON, COOL_OFF```
 
 ##### Fetch command execution history:
-```GET http://localhost:8090/smarthome/device/command/history```
+```GET http://localhost:8090/smarthome/device/command/history?num=50``` 
+- query parameter ``num`` - number of records to fetch, default if missing parameter is 100 records
 
 Response objects are returned ordered by timestamp, descending:
 ```json
