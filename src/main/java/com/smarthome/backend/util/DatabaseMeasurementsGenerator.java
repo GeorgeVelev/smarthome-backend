@@ -23,7 +23,7 @@ public class DatabaseMeasurementsGenerator implements CommandLineRunner {
     public void run(String... args) throws Exception {
         for (int i = 0; i < 20; i++) {
             measurementsService.saveMultiple(Arrays.asList(
-                    new MeasurementDTO(MeasurementType.LIGHT, MeasurementUnit.VOLTAGE, Double.toString(ThreadLocalRandom.current().nextDouble(0.0, 1023.0))),
+                    new MeasurementDTO(MeasurementType.LIGHT, MeasurementUnit.VOLTAGE, Double.toString(ThreadLocalRandom.current().nextDouble(0.0, 3.3))),
                     new MeasurementDTO(MeasurementType.TEMPERATURE, MeasurementUnit.CELSIUS, Double.toString(ThreadLocalRandom.current().nextDouble(10.0, 33.0)))
             ));
         }

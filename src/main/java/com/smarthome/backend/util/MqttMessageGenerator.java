@@ -34,7 +34,7 @@ public class MqttMessageGenerator {
     public void generateMessages() throws JsonProcessingException {
         SensorMessageDTO messageDTO = new SensorMessageDTO("app-msg-generator",
                 Arrays.asList(
-                        new MeasurementDTO(MeasurementType.LIGHT, MeasurementUnit.VOLTAGE, Double.toString(ThreadLocalRandom.current().nextDouble(0.0, 1023.0))),
+                        new MeasurementDTO(MeasurementType.LIGHT, MeasurementUnit.VOLTAGE, Double.toString(ThreadLocalRandom.current().nextDouble(0.0, 3.3))),
                         new MeasurementDTO(MeasurementType.TEMPERATURE, MeasurementUnit.CELSIUS, Double.toString(ThreadLocalRandom.current().nextDouble(10.0, 33.0)))
                 )
         );
