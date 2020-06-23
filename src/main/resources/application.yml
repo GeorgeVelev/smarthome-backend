@@ -8,16 +8,12 @@ smartHome:
       port: 1883
     devices:
       sensor:
-        room: bedroom
         topic: "nodemcu_sensor/measurements"
       lightsActuator:
-        room: bedroom
         topic: "nodemcu_actuator/lights"
       heaterActuator:
-        room: bedroom
         topic: "nodemcu_actuator/heat"
       coolerActuator:
-        room: bedroom
         topic: "nodemcu_actuator/cool"
     enableMessageGenerator: false
   database:
@@ -30,7 +26,7 @@ spring:
     generate-ddl: true
 #    hibernate.hbm-auto: create
   datasource:
-    url: jdbc:mysql://localhost:3306/test_db
+    url: jdbc:mysql://localhost:3306/smarthome
     username: root
     password: example
   security:

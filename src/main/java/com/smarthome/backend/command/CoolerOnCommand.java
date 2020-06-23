@@ -18,14 +18,17 @@ public class CoolerOnCommand extends AbstractCommand<Void> {
 
     @Override
     protected Void doExecute() {
-        mqttClient.publishWith()
-                .topic(MqttTopic.of(topic))
-                .qos(MqttQos.EXACTLY_ONCE)
-                .payload(commandType.getType().getBytes())
-                .send();
+        if (deviceState.getCooler() != DeviceStateType.ON) {
+            mqttClient.publishWith()
+                    .topic(MqttTopic.of(topic))
+                    .qos(MqttQos.EXACTLY_ONCE)
+                    .payload(commandType.getType().getBytes())
+                    .send();
 
-        deviceState.setCooler(DeviceStateType.ON);
-        commandHistoryRepository.save(new CommandHistory(commandType));
+            deviceState.setCooler(DeviceStateType.ON);
+            commandHistoryRepository.save(new CommandHistory(commandType));
+        }
+
         return null;
     }
 }

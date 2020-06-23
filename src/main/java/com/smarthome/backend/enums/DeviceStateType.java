@@ -18,7 +18,7 @@ public enum DeviceStateType {
     }
 
     @JsonValue
-    public String getTzype() {
+    public String getType() {
         return name();
     }
 

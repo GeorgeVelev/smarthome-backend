@@ -18,14 +18,17 @@ public class HeaterOnCommand extends AbstractCommand<Void> {
 
     @Override
     protected Void doExecute() {
-        mqttClient.publishWith()
-                .topic(MqttTopic.of(topic))
-                .qos(MqttQos.EXACTLY_ONCE)
-                .payload(commandType.getType().getBytes())
-                .send();
+        if (deviceState.getHeater() != DeviceStateType.ON) {
+            mqttClient.publishWith()
+                    .topic(MqttTopic.of(topic))
+                    .qos(MqttQos.EXACTLY_ONCE)
+                    .payload(commandType.getType().getBytes())
+                    .send();
 
-        deviceState.setHeater(DeviceStateType.ON);
-        commandHistoryRepository.save(new CommandHistory(commandType));
+            deviceState.setHeater(DeviceStateType.ON);
+            commandHistoryRepository.save(new CommandHistory(commandType));
+        }
+
         return null;
     }
 }

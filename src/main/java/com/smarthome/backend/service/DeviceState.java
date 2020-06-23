@@ -3,14 +3,22 @@ package com.smarthome.backend.service;
 import com.smarthome.backend.dto.DevicesStatusDTO;
 import com.smarthome.backend.enums.DeviceStateType;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
+
+import javax.annotation.PostConstruct;
 
 @Component
 public class DeviceState {
 
-    private DeviceStateType light = DeviceStateType.UNKNOWN;
-    private DeviceStateType heater = DeviceStateType.UNKNOWN;
-    private DeviceStateType cooler = DeviceStateType.UNKNOWN;
+    private DeviceStateType light;
+    private DeviceStateType heater;
+    private DeviceStateType cooler;
+
+    @PostConstruct
+    public void init() {
+        light = DeviceStateType.UNKNOWN;
+        heater = DeviceStateType.UNKNOWN;
+        cooler = DeviceStateType.UNKNOWN;
+    }
 
     public DevicesStatusDTO getDevicesStatus() {
         return new DevicesStatusDTO(light, heater, cooler);
